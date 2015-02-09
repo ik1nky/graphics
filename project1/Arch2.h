@@ -18,7 +18,7 @@ using namespace std;
 
 class Arch2 {
     private:
-      const int SUB_POINTS = 5;
+      const int SUB_POINTS = 20;
 
       const float RADIUS = 3.0f;
       const float HEIGHT = 5.0f;

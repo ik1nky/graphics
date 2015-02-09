@@ -17,14 +17,17 @@
 #include <glm/gtx/vector_angle.hpp>
 #include <glm/gtx/io.hpp>
 #include "Sphere.h"
-#include "Arch.h"
+#include "Arch2.h"
+#include "HexNut.h"
 #undef GLFW_DLL
 #include <GLFW/glfw3.h>
 
 using namespace std;
 
 Sphere one;
-Arch two;
+HexNut two;
+Arch2 three;
+
 void init_model();
 void win_refresh(GLFWwindow*);
 float arc_ball_rad_square;
@@ -111,7 +114,7 @@ void win_refresh (GLFWwindow *win) {
     glVertex3f(S, -S, -S);
     glEnd();
 
-    one.render(false);  /* true: super impose the polygon outline */
+    //one.render(false);  /* true: super impose the polygon outline */
 
     glPushMatrix();
     glTranslatef(S, S, -S);
@@ -119,6 +122,8 @@ void win_refresh (GLFWwindow *win) {
 
     two.render(false);
     glPopMatrix();
+
+    three.render();
 
     glPushMatrix();
     glTranslatef(-S, S, S);
@@ -245,6 +250,7 @@ void make_model() {
     int N = 0;
     one.build ((void *)&N);
     two.build(nullptr);
+    three.build();
 
     hex1_cf = glm::rotate(30.0f, glm::vec3{0, 1, 0});   /* rotate 30 degs around Y-axis */
 }
