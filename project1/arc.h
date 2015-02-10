@@ -1,5 +1,5 @@
-#ifndef ARCH_C_DEMO_H
-#define ARCH_C_DEMO_H
+#ifndef ARC_DEMO_H
+#define ARC_DEMO_H
 
 
 #define GLEW_STATIC
@@ -12,15 +12,13 @@
 #include <glm/gtx/vector_angle.hpp>
 #include <glm/gtx/io.hpp>
 #include <GLFW/glfw3.h>
-#include "Arch3.h"
-#include "arc.h"
 //#include <glm/vec3.hpp>
 
 using namespace std;
 
-class ArchComplete {
+class arc {
     private:
-      const int SUB_POINTS = 20;
+      const int SUB_POINTS = 100;
 
       const float RADIUS = 3.0f;
       const float HEIGHT = 5.0f;
@@ -30,9 +28,10 @@ class ArchComplete {
       vector<float> vertices;
       vector<GLushort> index;
     public:
-      ~ArchComplete();
+      ~arc();
       void build(float x, float y, float z,
-      float height, float width, float depth);
+      float height, float width, float depth,
+      float Rad);
       void render() const;
 };
 

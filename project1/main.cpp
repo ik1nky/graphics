@@ -121,7 +121,7 @@ void win_refresh (GLFWwindow *win) {
     glTranslatef(S, S, -S);
     glRotatef(-45, 1, 0, 0);
 
-    //two.render(false);
+    two.render(false);
     glPopMatrix();
 
     three.render();
