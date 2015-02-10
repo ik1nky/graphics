@@ -20,14 +20,22 @@
 #include "Arch3.h"
 #include "HexNut.h"
 #include "ArchComplete.h"
+#include "stick.h"
 #undef GLFW_DLL
 #include <GLFW/glfw3.h>
 
 using namespace std;
 
-Sphere one;
-HexNut two;
-ArchComplete three;
+Sphere one, two, three, four;
+//HexNut two;
+//ArchComplete three;
+Arch3 leg1, leg2, leg3, leg4,
+      side1, side2, side3, side4,
+      main_table;
+
+stick first_stick;
+stick first_stick_tip;
+stick hole1,hole2,hole3,hole4,hole5,hole6;
 
 void init_model();
 void win_refresh(GLFWwindow*);
@@ -90,41 +98,142 @@ void win_refresh (GLFWwindow *win) {
 
     /* The following two groups of GL_LINE_LOOP and GL_LINES draw the square block
      * whose 4 vertices make the tetrahedron */
-    glColor3ub (255, 200, 0);
-    glBegin(GL_LINE_LOOP);
-    glVertex3f(S, S, S);
-    glVertex3f(-S, S, S);
-    glVertex3f(-S, -S, S);
-    glVertex3f(S, -S, S);
-    glEnd();
-    glBegin(GL_LINE_LOOP);
-    glVertex3f(S, S, -S);
-    glVertex3f(-S, S, -S);
-    glVertex3f(-S, -S, -S);
-    glVertex3f(S, -S, -S);
-    glEnd();
-
-    glBegin(GL_LINES);
-    glVertex3f(S, S, S);
-    glVertex3f(S, S, -S);
-    glVertex3f(-S, S, S);
-    glVertex3f(-S, S, -S);
-    glVertex3f(-S, -S, S);
-    glVertex3f(-S, -S, -S);
-    glVertex3f(S, -S, S);
-    glVertex3f(S, -S, -S);
-    glEnd();
+    // glColor3ub (255, 200, 0);
+    // glBegin(GL_LINE_LOOP);
+    // glVertex3f(S, S, S);
+    // glVertex3f(-S, S, S);
+    // glVertex3f(-S, -S, S);
+    // glVertex3f(S, -S, S);
+    // glEnd();
+    // glBegin(GL_LINE_LOOP);
+    // glVertex3f(S, S, -S);
+    // glVertex3f(-S, S, -S);
+    // glVertex3f(-S, -S, -S);
+    // glVertex3f(S, -S, -S);
+    // glEnd();
+    //
+    // glBegin(GL_LINES);
+    // glVertex3f(S, S, S);
+    // glVertex3f(S, S, -S);
+    // glVertex3f(-S, S, S);
+    // glVertex3f(-S, S, -S);
+    // glVertex3f(-S, -S, S);
+    // glVertex3f(-S, -S, -S);
+    // glVertex3f(S, -S, S);
+    // glVertex3f(S, -S, -S);
+    // glEnd();
 
     //one.render(false);  /* true: super impose the polygon outline */
 
-    glPushMatrix();
-    glTranslatef(S, S, -S);
-    glRotatef(-45, 1, 0, 0);
+    main_table.render();
 
-    two.render(false);
+
+    glPushMatrix();
+    glTranslatef(5.5, 0, 1);
+    side1.render();
     glPopMatrix();
 
-    three.render();
+
+    glPushMatrix();
+    glTranslatef(-5.5,0,1);
+    side2.render();
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(0,9.5,1);
+    side3.render();
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(0,-9.5,1);
+    side4.render();
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(5,-9,-4.5);
+    leg1.render();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(5,9,-4.5);
+    leg2.render();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-5,-9,-4.5);
+    leg3.render();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-5,9,-4.5);
+    leg4.render();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-6,8,1.51);
+    hole1.render(0,0,0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-6,-1,1.51);
+    hole2.render(0,0,0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-6,-10,1.51);
+    hole3.render(0,0,0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(4,8,1.51);
+    hole4.render(0,0,0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(4,-1,1.51);
+    hole5.render(0,0,0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(4,-10,1.51);
+    hole6.render(0,0,0);
+    glPopMatrix();
+
+    // glPushMatrix();
+    // glTranslatef(-3,4,5);
+    // //glRotatef(120, 5,0,0);
+    // first_stick.render(200,100,8);
+    // glPopMatrix();
+
+    // glPushMatrix();
+    // glTranslatef(-3,4,6);
+    // first_stick_tip.render(255,255,255);
+    // glPopMatrix();
+    //
+    // glPushMatrix();
+    // glRotatef(120, 5,0,0);
+    // first_stick.render(200,100,8);
+    // first_stick_tip.render(255,255,255);
+    // glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-3,4,6);
+    glRotatef(120, 5,0,0);
+    first_stick.render(200,100,8);
+    first_stick_tip.render(255,255,255);
+    glPopMatrix();
+
+    // glPushMatrix();
+    // glTranslatef(S, S, -S);
+    // glRotatef(-45, 1, 0, 0);
+    //
+    // //two.render(false);
+    // glPopMatrix();
+
+    //three.render();
 
     glPushMatrix();
     glTranslatef(-S, S, S);
@@ -171,7 +280,7 @@ void key_handler (GLFWwindow *win, int key, int scan_code, int action, int mods)
             case GLFW_KEY_6:
                 /* rebuild the model at different level of detail */
                 int N = key - GLFW_KEY_0;
-                one.build((void *)&N);
+                //one.build((void *)&N);
                 break;
         }
     }
@@ -248,10 +357,35 @@ void init_gl() {
 }
 
 void make_model() {
-    int N = 0;
-    one.build ((void *)&N);
-    two.build(nullptr);
-    three.build(0,0,0,0,0,0);
+    int N = 5;
+    //one.build ((void *)&N);
+    //two.build(nullptr);
+    //three.build(0,0,0,0,0,0);
+    main_table.build(1,1,1,10,6,1);
+
+    side1.build(1,1,1,10,.5,.5);
+    side2.build(1,1,1,10,.5,.5);
+    side3.build(1,1,1,.5,6,.5);
+    side4.build(1,1,1,.5,6,.5);
+
+    leg1.build(1,1,1,1,1,5);
+    leg2.build(1,1,1,1,1,5);
+    leg3.build(1,1,1,1,1,5);
+    leg4.build(1,1,1,1,1,5);
+
+    // first_stick.build(1,1,1,8,1,1,.125);
+    // first_stick_tip.build(1,1,1,1,1,1,.125);
+
+    first_stick.build(1,1,1,8,1,1,.125);
+    first_stick_tip.build(1,1,2,1,1,1,.125);
+
+    hole1.build(1,1,1,1,1,1,.5);
+    hole2.build(1,1,1,1,1,1,.5);
+    hole3.build(1,1,1,1,1,1,.5);
+    hole4.build(1,1,1,1,1,1,.5);
+    hole5.build(1,1,1,1,1,1,.5);
+    hole6.build(1,1,1,1,1,1,.5);
+
 
     hex1_cf = glm::rotate(30.0f, glm::vec3{0, 1, 0});   /* rotate 30 degs around Y-axis */
 }

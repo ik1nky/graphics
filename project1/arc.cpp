@@ -41,7 +41,7 @@ void arc::build(
   vertices.push_back(y + temp_y);
   vertices.push_back(z);
 
-  vertices.push_back(-x+ temp_x);
+  vertices.push_back(-x -temp_x);
   vertices.push_back(y + temp_y);
   vertices.push_back(z);
 
