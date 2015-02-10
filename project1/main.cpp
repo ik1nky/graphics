@@ -17,8 +17,9 @@
 #include <glm/gtx/vector_angle.hpp>
 #include <glm/gtx/io.hpp>
 #include "Sphere.h"
-#include "Arch2.h"
+#include "Arch3.h"
 #include "HexNut.h"
+#include "ArchComplete.h"
 #undef GLFW_DLL
 #include <GLFW/glfw3.h>
 
@@ -26,7 +27,7 @@ using namespace std;
 
 Sphere one;
 HexNut two;
-Arch2 three;
+ArchComplete three;
 
 void init_model();
 void win_refresh(GLFWwindow*);
@@ -60,7 +61,7 @@ void win_resize (GLFWwindow * win, int width, int height)
 
     /* near-plane(1) & far-plane(10) are always POSITIVE and they measure
      * the distances along the Z-axis in front of the camera */
-    gluPerspective(60.0, static_cast<float> (width)/ static_cast<float> (height), 1, 10);
+    gluPerspective(60.0, static_cast<float> (width)/ static_cast<float> (height), 1, 100);
 }
 
 void win_refresh (GLFWwindow *win) {
@@ -120,7 +121,7 @@ void win_refresh (GLFWwindow *win) {
     glTranslatef(S, S, -S);
     glRotatef(-45, 1, 0, 0);
 
-    two.render(false);
+    //two.render(false);
     glPopMatrix();
 
     three.render();
@@ -128,7 +129,7 @@ void win_refresh (GLFWwindow *win) {
     glPushMatrix();
     glTranslatef(-S, S, S);
     glMultMatrixf(glm::value_ptr(hex1_cf));
-    two.render(false);
+    //two.render(false);
     glPopMatrix();
 
     /* must swap buffer at the end of render function */
@@ -250,7 +251,7 @@ void make_model() {
     int N = 0;
     one.build ((void *)&N);
     two.build(nullptr);
-    three.build();
+    three.build(0,0,0,0,0,0);
 
     hex1_cf = glm::rotate(30.0f, glm::vec3{0, 1, 0});   /* rotate 30 degs around Y-axis */
 }
@@ -267,7 +268,7 @@ cout << "Hello" << endl;
     glfwSetErrorCallback(err_function);
     GLFWwindow * win;
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-    win = glfwCreateWindow(100, 50, "Test", NULL, NULL);
+    win = glfwCreateWindow(1920, 1080, "Test", NULL, NULL);
     if (!win) {
         cerr << "Can't create window" << endl;
         exit (EXIT_FAILURE);
@@ -276,12 +277,13 @@ cout << "Hello" << endl;
     glfwSetWindowRefreshCallback(win, win_refresh);
     /* On Mac with Retina display there is a discrepancy between units measured in
      * "screen coordinates" and "pixels" */
-    // glfwSetWindowSizeCallback(win, win_resize);  /* use this for non-retina displays */
+    //glfwSetWindowSizeCallback(win, win_resize);  /* use this for non-retina displays */
     glfwSetFramebufferSizeCallback(win, win_resize); /* use this for retina displays */
     glfwSetKeyCallback(win, key_handler);
     glfwSetCursorPosCallback(win, cursor_handler);
     glfwSetScrollCallback(win, scroll_handler);
     glfwMakeContextCurrent(win);
+
 
     /* glewInit must be invoked AFTER glfwMakeContextCurrent() */
     GLenum err = glewInit();

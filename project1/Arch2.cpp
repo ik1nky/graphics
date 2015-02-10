@@ -81,7 +81,7 @@ void Arch2::render() const{
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 
 
-  glDrawElements(GL_QUAD_STRIP,SUB_POINTS+2, GL_UNSIGNED_SHORT,0);
+  //glDrawElements(GL_QUAD_STRIP,SUB_POINTS+2, GL_UNSIGNED_SHORT,0);
   //glDrawElements(GL_QUAD_STRIP,2*SUB_POINTS + 2, GL_UNSIGNED_SHORT,);
 
   glPopAttrib();
